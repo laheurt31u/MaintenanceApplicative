@@ -7,29 +7,6 @@ import java.util.LinkedList;
 public class Game implements IGame
 {
 
-    enum Categories
-    {
-        POP("Pop"),
-
-        SCIENCE("Science"),
-
-        SPORTS("Sports"),
-
-        ROCK("Rock");
-
-        private final String stringValue;
-
-        Categories(final String string)
-        {
-            stringValue = new String(string);
-        }
-
-        public String toString()
-        {
-            return stringValue;
-        }
-    }
-
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses = new int[6];
@@ -39,6 +16,7 @@ public class Game implements IGame
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
+    ArrayList<String> cate = new ArrayList<String>();
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -47,10 +25,10 @@ public class Game implements IGame
     {
         for (int i = 0; i < 50; i++)
         {
-            popQuestions.addLast(Categories.POP.toString()+" Question" + i);
-            scienceQuestions.addLast((Categories.POP.toString()+" Question" + i));
-            sportsQuestions.addLast((Categories.POP.toString()+" Question" + i));
-            rockQuestions.addLast(createRockQuestion(i));
+            popQuestions.addLast(POP + " Question" + i);
+            scienceQuestions.addLast((SCIENCE + " Question" + i));
+            sportsQuestions.addLast((SPORTS + " Question" + i));
+            rockQuestions.addLast((ROCK + " Question" + i));
         }
     }
 
@@ -90,63 +68,62 @@ public class Game implements IGame
         {
             if (roll % 2 != 0)
             {
-                isGettingOutOfPenaltyBox = true;
+                inPenaltyBox[currentPlayer] = false;
 
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > MAPSIZE) places[currentPlayer] = places[currentPlayer] - MAPSIZE;
-
-                System.out.println(players.get(currentPlayer)
-                        + "'s new location is "
-                        + places[currentPlayer]);
-                System.out.println("The category is " + currentCategory());
-                askQuestion();
+                avancerJoueur(roll);
             } else
             {
                 System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-                isGettingOutOfPenaltyBox = false;
             }
 
         } else
         {
 
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > MAPSIZE) places[currentPlayer] = places[currentPlayer] - MAPSIZE;
-
-            System.out.println(players.get(currentPlayer)
-                    + "'s new location is "
-                    + places[currentPlayer]);
-            System.out.println("The category is " + currentCategory());
-            askQuestion();
+            avancerJoueur(roll);
         }
 
     }
 
+    private void avancerJoueur(int roll)
+    {
+        places[currentPlayer] = places[currentPlayer] + roll;
+        if (places[currentPlayer] > MAPSIZE) places[currentPlayer] = places[currentPlayer] - MAPSIZE;
+
+        System.out.println(players.get(currentPlayer)
+                + "'s new location is "
+                + places[currentPlayer]);
+        System.out.println("The category is " + currentCategory());
+        askQuestion();
+    }
+
     private void askQuestion()
     {
-        if (currentCategory().equals("Pop"))
-            System.out.println(popQuestions.removeFirst());
-        if (currentCategory().equals("Science"))
-            System.out.println(scienceQuestions.removeFirst());
-        if (currentCategory().equals("Sports"))
-            System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory().equals("Rock"))
-            System.out.println(rockQuestions.removeFirst());
+        switch (currentCategory())
+        {
+            case POP:
+                System.out.println(popQuestions.removeFirst());
+                break;
+            case SCIENCE:
+                System.out.println(scienceQuestions.removeFirst());
+                break;
+            case SPORTS:
+                System.out.println(sportsQuestions.removeFirst());
+                break;
+            case ROCK:
+                System.out.println(rockQuestions.removeFirst());
+                break;
+        }
     }
 
 
     private String currentCategory()
     {
-        if (places[currentPlayer] - 1 == 0) return "Pop";
-        if (places[currentPlayer] - 1 == 4) return "Pop";
-        if (places[currentPlayer] - 1 == 8) return "Pop";
-        if (places[currentPlayer] - 1 == 1) return "Science";
-        if (places[currentPlayer] - 1 == 5) return "Science";
-        if (places[currentPlayer] - 1 == 9) return "Science";
-        if (places[currentPlayer] - 1 == 2) return "Sports";
-        if (places[currentPlayer] - 1 == 6) return "Sports";
-        if (places[currentPlayer] - 1 == 10) return "Sports";
-        return "Rock";
+        int place = places[currentPlayer] - 1;
+        if (place == 0 || place == 4 || place == 8) return POP;
+        if (place == 1 || place == 5 || place == 9) return SCIENCE;
+        if (place == 2 || place == 6 || place == 10) return SPORTS;
+        return ROCK;
     }
 
     public boolean handleCorrectAnswer()
