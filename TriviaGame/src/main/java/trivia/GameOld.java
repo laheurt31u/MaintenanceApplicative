@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 
-
-
 // TODO refactor me
 public class GameOld implements IGame
 {
@@ -51,7 +49,7 @@ public class GameOld implements IGame
         players.add(playerName);
 
         System.out.println(playerName + " was added");
-        System.out.println("There are " + players.size() + " players.");
+        System.out.println("They are player number " + players.size());
         return true;
     }
 
@@ -69,7 +67,7 @@ public class GameOld implements IGame
         {
             if (roll % 2 != 0)
             {
-                isGettingOutOfPenaltyBox = true;
+                inPenaltyBox[currentPlayer] = false;
 
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
                 places[currentPlayer] = places[currentPlayer] + roll;
@@ -134,7 +132,7 @@ public class GameOld implements IGame
         {
             if (isGettingOutOfPenaltyBox)
             {
-                System.out.println(CORRECT);
+                System.out.println("Answer was correct !!!!");
                 purses[currentPlayer]++;
                 System.out.println(players.get(currentPlayer)
                         + " now has "
@@ -156,7 +154,7 @@ public class GameOld implements IGame
         } else
         {
 
-            System.out.println(CORRECT);
+            System.out.println("Answer was correct !!!!");
             purses[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
                     + " now has "

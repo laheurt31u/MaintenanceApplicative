@@ -25,10 +25,10 @@ public class Game implements IGame
     {
         for (int i = 0; i < 50; i++)
         {
-            popQuestions.addLast(POP + " Question" + i);
-            scienceQuestions.addLast((SCIENCE + " Question" + i));
-            sportsQuestions.addLast((SPORTS + " Question" + i));
-            rockQuestions.addLast((ROCK + " Question" + i));
+            popQuestions.addLast(POP + " Question " + i);
+            scienceQuestions.addLast((SCIENCE + " Question " + i));
+            sportsQuestions.addLast((SPORTS + " Question " + i));
+            rockQuestions.addLast((ROCK + " Question " + i));
         }
     }
 
