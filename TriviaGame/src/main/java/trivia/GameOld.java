@@ -51,7 +51,7 @@ public class GameOld implements IGame
         players.add(playerName);
 
         System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
+        System.out.println("There are " + players.size() + " players.");
         return true;
     }
 
@@ -134,7 +134,7 @@ public class GameOld implements IGame
         {
             if (isGettingOutOfPenaltyBox)
             {
-                System.out.println("Answer was correct!!!!");
+                System.out.println(CORRECT);
                 purses[currentPlayer]++;
                 System.out.println(players.get(currentPlayer)
                         + " now has "
@@ -156,7 +156,7 @@ public class GameOld implements IGame
         } else
         {
 
-            System.out.println("Answer was corrent!!!!");
+            System.out.println(CORRECT);
             purses[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
                     + " now has "

@@ -14,10 +14,10 @@ public class PlayGame {
       System.out.println("*** Welcome to Trivia Game ***\n");
       System.out.println("Enter number of players: 1-4");
       boolean nbPlay = false;
-      int playerCount;
+      int playerCount = 0;
       while(!nbPlay)
       {
-         int playerCount = Integer.parseInt(scanner.nextLine());
+          playerCount = Integer.parseInt(scanner.nextLine());
          if (playerCount >0 && playerCount <= 4) nbPlay = true;
       }
       System.out.println("Reading names for " + playerCount + " players:");

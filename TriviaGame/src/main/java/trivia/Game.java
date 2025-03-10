@@ -94,7 +94,7 @@ public class Game implements IGame
 
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
                 places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+                if (places[currentPlayer] > MAPSIZE) places[currentPlayer] = places[currentPlayer] - MAPSIZE;
 
                 System.out.println(players.get(currentPlayer)
                         + "'s new location is "
@@ -111,7 +111,7 @@ public class Game implements IGame
         {
 
             places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+            if (places[currentPlayer] > MAPSIZE) places[currentPlayer] = places[currentPlayer] - MAPSIZE;
 
             System.out.println(players.get(currentPlayer)
                     + "'s new location is "
@@ -124,13 +124,13 @@ public class Game implements IGame
 
     private void askQuestion()
     {
-        if (currentCategory() == "Pop")
+        if (currentCategory().equals("Pop"))
             System.out.println(popQuestions.removeFirst());
-        if (currentCategory() == "Science")
+        if (currentCategory().equals("Science"))
             System.out.println(scienceQuestions.removeFirst());
-        if (currentCategory() == "Sports")
+        if (currentCategory().equals("Sports"))
             System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory() == "Rock")
+        if (currentCategory().equals("Rock"))
             System.out.println(rockQuestions.removeFirst());
     }
 
@@ -155,7 +155,7 @@ public class Game implements IGame
         {
             if (isGettingOutOfPenaltyBox)
             {
-                System.out.println("Answer was corrent!!!!");
+                System.out.println(CORRECT);
                 purses[currentPlayer]++;
                 System.out.println(players.get(currentPlayer)
                         + " now has "
@@ -178,7 +178,7 @@ public class Game implements IGame
         } else
         {
 
-            System.out.println("Answer was corrent!!!!");
+            System.out.println(CORRECT);
             purses[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
                     + " now has "
