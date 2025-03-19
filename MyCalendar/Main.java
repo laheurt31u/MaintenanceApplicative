@@ -31,7 +31,7 @@ public class Main {
                 System.out.println(
                         "                                                                                   __/ |");
                 System.out.println(
-                        "                                                                                  |___/");
+                        "                                                                                   |___/");
 
                 System.out.println("1 - Se connecter");
                 System.out.println("2 - Créer un compte");
