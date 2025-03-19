@@ -5,13 +5,24 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
+        //Setup des utilisateurs
+        ListeUtilisateur utilisateurs = new ListeUtilisateur();
+        Utilisateur u = new Utilisateur("pierre", "KiRouhl");
+        utilisateurs.ajouterUtilisateur(u);
+        u = new Utilisateur("Roger", "Chat");
+        utilisateurs.ajouterUtilisateur(u);
+
+        //
         CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
-        String utilisateur = null;
+        ConnexionManager connexionManager = new ConnexionManager();
+        Utilisateur utilisateur = null;
+        String password;
         boolean continuer = true;
 
-        String utilisateurs[] = new String[99];
+        //String utilisateurs[] = new String[99];
         String motsDePasses[] = new String[99];
         int nbUtilisateurs = 0;
 
@@ -31,58 +42,9 @@ public class Main {
                 System.out.println(
                         "                                                                                   __/ |");
                 System.out.println(
-                        "                                                                                   |___/");
+                        "                                                                                  |___/");
 
-                System.out.println("1 - Se connecter");
-                System.out.println("2 - Créer un compte");
-                System.out.println("Choix : ");
-
-                switch (scanner.nextLine()) {
-                    case "1":
-                        System.out.print("Nom d'utilisateur: ");
-                        utilisateur = scanner.nextLine();
-
-                        if (utilisateur.equals("Roger")) {
-                            String motDePasse = scanner.nextLine();
-                            if (!motDePasse.equals("Chat")) {
-                                utilisateur = null;
-                            }
-                        } else {
-                            if (utilisateur.equals("Pierre")) {
-                                String motDePasse = scanner.nextLine();
-                                if (!motDePasse.equals("KiRouhl")) {
-                                    utilisateur = null;
-                                }
-                            } else {
-                                System.out.print("Mot de passe: ");
-                                String motDePasse = scanner.nextLine();
-
-                                for (int i = 0; i < nbUtilisateurs; i = i + 1) {
-                                    if (utilisateurs[i].equals(utilisateur) && motsDePasses[i].equals(motDePasse)) {
-                                        utilisateur = utilisateurs[i];
-                                    }
-                                }
-                            }
-                        }
-                        break;
-
-                    case "2":
-                        System.out.print("Nom d'utilisateur: ");
-                        utilisateur = scanner.nextLine();
-                        System.out.print("Mot de passe: ");
-                        String motDePasse = scanner.nextLine();
-                        System.out.print("Répéter mot de passe: ");
-                        if (scanner.nextLine().equals(motDePasse)) {
-                            utilisateurs[nbUtilisateurs] = utilisateur;
-                            motsDePasses[nbUtilisateurs] = motDePasse;
-                            nbUtilisateurs = nbUtilisateurs + 1;
-                        } else {
-                            System.out.println("Les mots de passes ne correspondent pas...");
-                            utilisateur = null;
-                        }
-                        break;
-                }
-            }
+                       connexionManager.connecter(utilisateurs, scanner);
 
             while (continuer && utilisateur != null) {
                 System.out.println("\nBonjour, " + utilisateur);
